@@ -1,13 +1,14 @@
 from pypylon import pylon
 import cv2
 import numpy as np
+cv2.destroyAllWindows()
 
 print(' d: data capture \n q: quit \n')
 
 # directories where the images will be saved
-j = 60
-datadirL = './basler_L_data_2020/' #'./basler_L_data/'
-datadirR = './basler_R_data_2020/' #'./basler_R_data/'
+j = 0
+datadirL = './basler_L_data_2022/' #'./basler_L_data/'
+datadirR = './basler_R_data_2022/' #'./basler_R_data/'
 
 # Pypylon get camera by serial number
 serial_number_1 = '22730679' #right
