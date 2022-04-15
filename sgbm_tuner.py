@@ -7,13 +7,13 @@ import json
 import stereo_setting as stset
 
 # Rectifying the images
-imgL, imgR = cv2.imread("./singlerun_2020/67_L_.png"), cv2.imread("./singlerun_2020/67_R_.png")
+imgL, imgR = cv2.imread("./captured/both/left/45_L_.png"), cv2.imread("./captured/both/right/45_R_.png")
 print(imgL.shape[:2])
 print('IMAGES LOADED')
 print(100*'#')
 
 vert, hori = imgL.shape[:2]
-left_stereo_map, right_stereo_map, _ = stset.st_maps("./basler_calib_params_2020/", (hori, vert))
+left_stereo_map, right_stereo_map, _ = stset.st_maps("./captured/calibrators/calibParams/", (hori, vert))
 print('MAPS COMPUTED')
 print(100*'#')
 
@@ -23,7 +23,7 @@ print('RECTIFIED')
 print(100*'#')
 grayL = cv2.cvtColor(rectL, cv2.COLOR_BGR2GRAY)
 grayR = cv2.cvtColor(rectR, cv2.COLOR_BGR2GRAY)
-rectified_pair = (grayL, grayR)
+rectified_pair = (grayR, grayL)
 
 # Depth map function
 '''

@@ -32,13 +32,13 @@ import json
 import stereo_setting as stset
 
 # Rectifying the images
-imgL, imgR = cv2.imread("./21_1080p_L_pot/8_L_.png", 0), cv2.imread("./21_1080p_R_pot/8_R_.png", 0)
+imgL, imgR = cv2.imread("./basler_L_data_2022/27_L_.png"), cv2.imread("./basler_R_data_2022/27_R_.png")
 print(imgL.shape[:2])
 print('IMAGES LOADED')
 print(100*'#')
 
 vert, hori = imgL.shape[:2]
-left_stereo_map, right_stereo_map, _ = stset.st_maps("./21_1080p_calib_params/", (hori, vert))
+left_stereo_map, right_stereo_map, _ = stset.st_maps("./basler_calib_params_2022/", (hori, vert))
 print('MAPS COMPUTED')
 print(100*'#')
 
