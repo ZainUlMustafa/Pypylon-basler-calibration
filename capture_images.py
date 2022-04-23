@@ -7,7 +7,7 @@ cv2.destroyAllWindows()
 print(' d: data capture \n q: quit \n')
 
 # directories where the images will be saved
-j = 9
+j = 90
 datadirL = './captured/left/'
 datadirR = './captured/right/'
 
