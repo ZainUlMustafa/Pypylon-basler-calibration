@@ -2,7 +2,7 @@
 # GenApi persistence file (version 3.1.0)
 # Device = Basler::UsbCameraParams -- Basler USB3Vision camera interface -- Device version = 1.0.0 -- Product GUID = E2B85513-89C6-4F6C-B2C2-CC6588229D9F -- Product version GUID = CFA325E7-5288-4D40-B717-729F879316B4
 GainSelector	All
-GainRaw	101
+GainRaw	64
 GainSelector	All
 GainSelector	All
 GainAuto	Off
@@ -31,7 +31,7 @@ PixelFormat	Mono8
 TestPattern	Off
 SensorShutterMode	Global
 OverlapMode	On
-ExposureTimeRaw	24000
+ExposureTimeRaw	35000
 ExposureAuto	Off
 AutoExposureTimeLowerLimitRaw	100
 AutoExposureTimeUpperLimitRaw	100000
@@ -96,7 +96,7 @@ DeviceLinkSelector	0
 DeviceLinkThroughputLimitMode	On
 DeviceLinkSelector	0
 DeviceLinkSelector	0
-DeviceLinkThroughputLimit	163000000
+DeviceLinkThroughputLimit	32000000
 DeviceLinkSelector	1
 DeviceLinkThroughputLimit	0
 DeviceLinkSelector	0

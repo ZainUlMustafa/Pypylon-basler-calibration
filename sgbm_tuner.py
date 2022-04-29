@@ -7,7 +7,7 @@ import json
 import stereo_setting as stset
 
 # Rectifying the images
-imgL, imgR = cv2.imread("./captured/both/left/45_L_.png"), cv2.imread("./captured/both/right/45_R_.png")
+imgL, imgR = cv2.imread("./captured/test/left/5_L_.png"), cv2.imread("./captured/test/right/5_R_.png")
 print(imgL.shape[:2])
 print('IMAGES LOADED')
 print(100*'#')
@@ -24,6 +24,22 @@ print(100*'#')
 grayL = cv2.cvtColor(rectL, cv2.COLOR_BGR2GRAY)
 grayR = cv2.cvtColor(rectR, cv2.COLOR_BGR2GRAY)
 rectified_pair = (grayR, grayL)
+
+def drawLines(image):
+    y,count = 0,0
+    img = image.copy()
+    while(count<40):
+        img = cv2.line(img, (0,50+y), (img.shape[1],50+y), (y,count*2,y), 2)
+        y+=30
+        count+=1
+    #endwhile
+    return cv2.resize(img, (640,480))
+#enddef
+
+cv2.imshow('R', drawLines(grayR))
+cv2.imshow('L', drawLines(grayL))
+cv2.waitKey(0)
+cv2.destroyAllWindows()
 
 # Depth map function
 '''
@@ -67,8 +83,8 @@ def stereo_depth_map(rectified_pair):
     sbm.setP1(8*3*BS**2)
     sbm.setP2(32*3*BS**2)
 
-    dmLeft = rectified_pair[0]
-    dmRight = rectified_pair[1]
+    dmLeft = rectified_pair[1]
+    dmRight = rectified_pair[0]
     #cv2.FindStereoCorrespondenceBM(dmLeft, dmRight, disparity, sbm)
     disparity = sbm.compute(dmLeft, dmRight)
     #disparity_visual = cv.CreateMat(c, r, cv.CV_8U)
@@ -162,8 +178,8 @@ URaxe = plt.axes([0.15, 0.25, 0.7, 0.025], facecolor=axcolor) #stepX stepY width
 SRaxe = plt.axes([0.15, 0.29, 0.7, 0.025], facecolor=axcolor) #stepX stepY width height
 SPWSaxe = plt.axes([0.15, 0.33, 0.7, 0.025], facecolor=axcolor) #stepX stepY width height
 
-sBS = Slider(SWSaxe, 'BlockSize', 5.0, 255.0, valinit=5)
-sMDS = Slider(PFSaxe, 'MinDisp', -100.0, 100.0, valinit=5)
+sBS = Slider(SWSaxe, 'BlockSize', 1.0, 255.0, valinit=5)
+sMDS = Slider(PFSaxe, 'MinDisp', -200.0, 200.0, valinit=5)
 sNOD = Slider(PFCaxe, 'NumOfDisp', 16.0, 640.0, valinit=16)
 sUR = Slider(MDSaxe, 'UnicRatio', 1.0, 20.0, valinit=2)
 sSPWS = Slider(NODaxe, 'SpklWinSze', 0.0, 300.0, valinit=128)
