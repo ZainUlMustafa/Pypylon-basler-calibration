@@ -7,7 +7,7 @@ import json
 import stereo_setting as stset
 
 # Rectifying the images
-imgL, imgR = cv2.imread("../test/left/1_L_.png"), cv2.imread("../test/right/1_R_.png")
+imgL, imgR = cv2.imread("../test/left/7_L_.png"), cv2.imread("../test/right/7_R_.png")
 print(imgL.shape[:2])
 print('IMAGES LOADED')
 print(100*'#')
@@ -162,7 +162,7 @@ URaxe = plt.axes([0.15, 0.25, 0.7, 0.025], facecolor=axcolor) #stepX stepY width
 SRaxe = plt.axes([0.15, 0.29, 0.7, 0.025], facecolor=axcolor) #stepX stepY width height
 SPWSaxe = plt.axes([0.15, 0.33, 0.7, 0.025], facecolor=axcolor) #stepX stepY width height
 
-sBS = Slider(SWSaxe, 'BlockSize', 5.0, 255.0, valinit=5)
+sBS = Slider(SWSaxe, 'BlockSize', 1.0, 255.0, valinit=5)
 sMDS = Slider(PFSaxe, 'MinDisp', -100.0, 100.0, valinit=5)
 sNOD = Slider(PFCaxe, 'NumOfDisp', 16.0, 640.0, valinit=16)
 sUR = Slider(MDSaxe, 'UnicRatio', 1.0, 20.0, valinit=2)
