@@ -7,13 +7,14 @@ import json
 import stereo_setting as stset
 
 # Rectifying the images
-imgL, imgR = cv2.imread("./test/k/0_L_.png"), cv2.imread("./test/k/0_R_.png")
+img_no = 101
+imgL, imgR = cv2.imread(f"./test/left/{str(img_no)}_L_.png"), cv2.imread(f"./test/right/{str(img_no)}_R_.png")
 print(imgL.shape[:2])
 print('IMAGES LOADED')
 print(100*'#')
 
 vert, hori = imgL.shape[:2]
-left_stereo_map, right_stereo_map, _ = stset.st_maps("./calibParams/", (hori, vert))
+left_stereo_map, right_stereo_map, _ = stset.st_maps("./calibrators/calibParams/", (hori, vert))
 print('MAPS COMPUTED')
 print(100*'#')
 
@@ -102,7 +103,7 @@ buttons = Button(saveax, 'Save settings', color=axcolor, hovercolor='0.975')
 def save_map_settings( event ):
     buttons.label.set_text ("Saving...")
     print('Saving to file...') 
-    result = json.dumps({'blockSize':BS, 'minDisparity':MDS, 'numDisparities':NOD, \
+    result = json.dumps({'ImageNo':img_no,'blockSize':BS, 'minDisparity':MDS, 'numDisparities':NOD, \
              'uniquenessRatio':UR, 'speckleWindowSize':SPWS, 'speckleRange':SR, \
              'disp12MaxDiff':DMD, 'P1':P1, 'P2':P2},\
              sort_keys=True, indent=4, separators=(',',':'))
@@ -114,7 +115,6 @@ def save_map_settings( event ):
     print ('Settings saved to file '+fName)
 
 buttons.on_clicked(save_map_settings)
-
 
 loadax = plt.axes([0.5, 0.38, 0.15, 0.04]) #stepX stepY width height
 buttonl = Button(loadax, 'Load settings', color=axcolor, hovercolor='0.975')
@@ -184,6 +184,21 @@ def color_disparity_map(disparity):
     return disparity * norm_coeff / 255, disparity_color
 #enddef
 
+def updatedepthmap(event):
+        print ('Rebuilding depth map')
+        disparity = stereo_depth_map(rectified_pair)
+        dmObject.set_data(disparity)
+        print('Saving disp map!')
+        disp, cdisp = color_disparity_map(disparity)
+        cv2.imwrite('./disp.png', cdisp)
+        print ('Redraw depth map')
+        plt.draw()
+uax= plt.axes([0.7, 0.38, 0.15, 0.04])
+buttonu = Button(uax, 'Update Map', color=axcolor, hovercolor='0.975')
+
+buttonu.on_clicked(updatedepthmap)
+
+
 # Update depth map parameters and redraw
 def update(val):
     global loading_settings, BS, MDS, NOD, UR, SPWS, SR, DMD, P1, P2
@@ -197,17 +212,6 @@ def update(val):
     P2 = 32*3*BS**2#int(sP2.val)
     
     
-    if ( loading_settings==0 ):
-        print ('Rebuilding depth map')
-        disparity = stereo_depth_map(rectified_pair)
-        dmObject.set_data(disparity)
-        print('Saving disp map!')
-        disp, cdisp = color_disparity_map(disparity)
-        cv2.imwrite('./disp.png', cdisp)
-        print ('Redraw depth map')
-        plt.draw()
-
-
 # Connect update actions to control elements
 sBS.on_changed(update)
 sMDS.on_changed(update)
