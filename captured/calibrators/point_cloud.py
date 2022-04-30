@@ -69,7 +69,7 @@ Translation = np.array([354.5368,-77.7998,-179.6456])
 #Specify image paths
 ldir = "../test/left/"
 rdir = "../test/right/"
-img_no = 1
+img_no = 110
 img_path1 = ldir+f'{str(img_no)}_L_.png'
 img_path2 = rdir+f'{str(img_no)}_R_.png'
 
@@ -191,14 +191,14 @@ num_disp = max_disp - min_disp # Needs to be divisible by 16
 #Create Block matching object. 
 stereo = cv2.StereoSGBM_create(
     minDisparity= 5,
-    numDisparities = 592,
-    blockSize = 5,
+    numDisparities = 336,
+    blockSize = 3,
     uniquenessRatio = 2,
     speckleWindowSize = 128,
     speckleRange = 10,
     disp12MaxDiff = 5,
-    P1 = 600,
-    P2 = 2400
+    P1 = 216,
+    P2 = 864
 ) 
 #Compute disparity map
 print ("\nComputing the disparity  map...")
@@ -232,7 +232,7 @@ focal_length = 4
 # #Link : https://ags.cs.uni-kl.de/fileadmin/inf_ags/3dcv-ws14-15/3DCV_lec01_camera.pdf
 Q2 = np.float32([[1,0,0,0],
     [0,-1,0,0],
-    [0,0,focal_length*0.01,0], #Focal length multiplication obtained experimentally. 
+    [0,0,focal_length*0.05,0], #Focal length multiplication obtained experimentally. 
     [0,0,0,1]])
 # # Third transformation matrix first two dont work 
 # Q3 = np.zeros((4,4))

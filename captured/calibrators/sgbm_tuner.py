@@ -7,7 +7,8 @@ import json
 import stereo_setting as stset
 
 # Rectifying the images
-imgL, imgR = cv2.imread("../test/left/7_L_.png"), cv2.imread("../test/right/7_R_.png")
+imgNo = 110
+imgL, imgR = cv2.imread(f"../test/left/{imgNo}_L_.png"), cv2.imread(f"../test/right/{imgNo}_R_.png")
 print(imgL.shape[:2])
 print('IMAGES LOADED')
 print(100*'#')
